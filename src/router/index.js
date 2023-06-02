@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PostsView from '../views/PostsView.vue'
-import PostView from '../views/PostView.vue'
-import PostAddView from '../views/PostAddView.vue'
+import Index from '../views/posts/Index.vue'
+import Id from '../views/posts/Id.vue'
+import Add from '../views/posts/Add.vue'
 
 const router = createRouter({
   history: createWebHistory(), 
   routes: [
     {
       path: '/',
-      name: 'posts',
-      component: PostsView
+      name: 'index',
+      component: Index
     },
-    { 
+    {
       path: '/post/:id',
-      name: 'post', 
-      component: PostView 
+      name: 'id',
+      component: Id
     },
     { 
-      path: '/posts/add', 
-      name: 'post_add', 
-      component: PostAddView 
-    },
+      path: '/add_post', 
+      name: 'add_post', 
+      component: Add 
+    }
   ]
 })
 

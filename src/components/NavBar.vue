@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router'
                    <RouterLink to="/" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Посты</RouterLink>
                  </li>
                  <li>
-                   <RouterLink to="/posts/add" class="text-gray-900 dark:text-white hover:underline">Создать пост</RouterLink>
+                   <RouterLink to="/add_post" class="text-gray-900 dark:text-white hover:underline">Создать пост</RouterLink>
                  </li>
              </ul>
          </div>

@@ -3,7 +3,7 @@
   import { RouterLink } from 'vue-router'
   import { computed } from "vue";
   import { storeToRefs } from 'pinia'
-  import { usePostStore } from '../stores/post'
+  import { usePostStore } from '@/stores/post'
   
 
   const { posts, loading, error } = storeToRefs(usePostStore())

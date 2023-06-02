@@ -8,26 +8,31 @@ export const useCommentStore = defineStore({
   }),
   getters: {
     getPostComments: (state) => {
+      state.mergeCommentPhoto()
       return state.comments
     }
   },
-  methods: {
-    
-  },
   actions: {
     async fetchComments(id) {
+      this.fetchCommentContent(id)
+      this.fetchPhotos()
+    },
+    async fetchCommentContent(id) {
       this.comments = await fetch(`https://jsonplaceholder.typicode.com/post/${id}/comments`)
       .then((response) => response.json())
+    },
+    async fetchPhotos() {
       this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
       .then((response) => response.json())
-      
-      let i = 0;
-      while (i < this.comments.length) {
-          this.comments[i] = Object.assign({}, this.comments[i], this.photos[i]);
-          
-          i++;
-      }  
     },
+    async mergeCommentPhoto(){
+      let i = 0;
+          while (i < this.comments.length) {
+              this.comments[i] = Object.assign({}, this.comments[i], this.photos[i]);
+              i++;
+          }
+    },
+
     async onCreateComment(id, body) {
         
       let data = await fetch('https://jsonplaceholder.typicode.com/comments', {

@@ -2,14 +2,21 @@
   import { useRoute } from 'vue-router'
   import { storeToRefs } from 'pinia'
  
-  import { usePostStore } from '../stores/post'
-  import SinglePost from '../components/SinglePost.vue'
+  import { usePostStore } from '@/stores/post'
+  import SinglePost from '@/components/SinglePost.vue'
+
+  import { useCommentStore } from '@/stores/comment'
+  import SingleComment from '@/components/SingleComment.vue'
 
   const route = useRoute() 
   const { post, loading, error, photo } = storeToRefs(usePostStore())
   const { fetchPost } = usePostStore()
+  const { fetchComments } = useCommentStore()
+  const { getPostComments } = storeToRefs(useCommentStore())
+  // const { onCreateComment } = useCommentStore()
 
   fetchPost(route.params.id)
+  fetchComments(route.params.id)
 </script>
 
 <template>
@@ -27,6 +34,11 @@
         <br>
         
         <SinglePost :post="post" :photo="photo" ></SinglePost>
+        
+        <div v-for="comment in getPostComments" :key="comment.id">
+          <SingleComment :comment="comment"></SingleComment>
+        </div>
+
       </div>
     </div>
   </div>

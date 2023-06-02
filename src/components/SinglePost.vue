@@ -1,19 +1,11 @@
 <script setup>
   import { defineProps } from 'vue'
   import { useRoute } from 'vue-router'
-  import { storeToRefs } from 'pinia'
-  import { useCommentStore } from '../stores/comment'
-  import SingleComment from '../components/PostComment.vue'
+
 
   defineProps(['post', 'photo'])
 
   const route = useRoute() 
-  const { getPostComments } = storeToRefs(useCommentStore())
-  const { fetchComments } = useCommentStore()
-  const { onCreateComment } = useCommentStore()
-
-  fetchComments(route.params.id)
-  
 </script>
 
 <template>
@@ -37,7 +29,7 @@
                   </div>
               </form>
               
-              <SingleComment :comments="getPostComments"></SingleComment>
+              
 
               </section>
 </template>
