@@ -2,21 +2,22 @@
   import { defineProps } from 'vue'
   import { useRoute } from 'vue-router'
 
-
-  defineProps(['post', 'photo'])
+  defineProps(['post', 'photo_url'])
 
   const route = useRoute() 
 </script>
 
 <template>
+  
+  <img :src="photo_url">
             <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ post.title }}</h1>
           
               {{ post.body }}
               <br>
               <section class="not-format">
-              <div class="flex justify-between items-center mb-6">
+              <!-- <div class="flex justify-between items-center mb-6">
                   <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Обсуждение: <span> {{ getPostComments.length }}</span></h2>
-              </div>
+              </div> -->
               
               <form class="mb-6" @submit.prevent="onCreateComment(route.params.id, body)">
                   <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">

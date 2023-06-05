@@ -13,72 +13,24 @@ export const usePostStore = defineStore({
   }),
   
   actions: {
-   
     async searchPosts(title){
       this.posts = await fetch(`https://jsonplaceholder.typicode.com/posts?title=${title}`)
       .then((response) => response.json())
 
       this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
-      .then((response) => response.json()) 
-
-      const selectedKeys = ['url', 'thumbnailUrl']
-      let i = 0;
-      while (i < this.posts.length) {
-          this.data = Object.keys(this.photos[i]).reduce((acc, key) => {
-            if (selectedKeys.includes(key)){
-              acc[key] = this.photos[i][key]
-            }
-            return acc;
-          }, {})
-  
-          this.posts[i] = Object.assign({}, this.posts[i], this.data);
-          i++;
-      }
+      .then((response) => response.json())
     },
-
-    async fetchPosts(title=null) {
+    async fetchPosts() {
       this.posts = []
       this.loading = true
       
-      try {
-        if(title === 'undefined' || title === null){
-          this.posts = await fetch(`https://jsonplaceholder.typicode.com/posts`)
-          .then((response) => response.json())
-  
-        }else{
-          await axios.get(`https://jsonplaceholder.typicode.com/posts?title=${title}`)
-          .then((response)=>{
-          this.posts = response.data
-          console.log(this.data)
-        })
-        }
+      this.posts = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+      .then((response) => response.json())
 
-        this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
-        .then((response) => response.json())  
-        
-        const selectedKeys = ['url', 'thumbnailUrl']
-        
-        let i = 0;
-        while (i < this.posts.length) {
-            let data = Object.keys(this.photos[i]).reduce((acc, key) => {
-              if (selectedKeys.includes(key)){
-                acc[key] = this.photos[i][key]
-              }
-              return acc;
-            }, {})
-  
-            this.posts[i] = Object.assign({}, this.posts[i], data);
-            i++;
-        }
-
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
-    },
-    async twoItemsInOne(){
+      this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
+      .then((response) => response.json())
       
+      this.loading = false
     },
     async fetchPost(id) {
       this.post = null
@@ -93,8 +45,6 @@ export const usePostStore = defineStore({
       } finally {
         this.loading = false
       }
-    },
-    
+    }, 
   }
-
 })

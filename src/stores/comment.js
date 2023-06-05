@@ -32,25 +32,22 @@ export const useCommentStore = defineStore({
               i++;
           }
     },
-
-    async onCreateComment(id, body) {
-        
-      let data = await fetch('https://jsonplaceholder.typicode.com/comments', {
-        method: 'POST',
-        body: JSON.stringify({
-        email: 'Анонимный',
-        body: body,
-        postId: id,
-      }),
-        headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      },
-      })
-      .then((response) => response.json());
+  //   async onCreateComment(id, body) {
+  //     let data = await fetch('https://jsonplaceholder.typicode.com/comments', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //       email: 'Анонимный',
+  //       body: body,
+  //       postId: id,
+  //     }),
+  //       headers: {
+  //     'Content-type': 'application/json; charset=UTF-8',
+  //     },
+  //     })
+  //     .then((response) => response.json());
      
-      this.comments.push(data)
-      alert('Ваш комментарий успешно добавлен!')
-      }
+  //     this.comments.push(data)
+  //     alert('Ваш комментарий успешно добавлен!')
+  //     }
   },
-
 })
