@@ -11,7 +11,7 @@ export default{
   methods: {
     async onCreatePost() {
       try {
-        let data = await fetch('https://jsonplddaceholder.typicode.com/posts', {
+        let data = await fetch('https://jsonplaceholder.typicode.com/posts', {
           method: 'POST',
           body: JSON.stringify({
             title: this.title,

@@ -7,50 +7,44 @@ export const usePostStore = defineStore({
         photos: [],
         post: null,
         photo: null,
-        loading: false,
-        error: null,
     }),
 
     actions: {
-        async searchPosts(title) {
-            this.loading = true
-            try {
-                this.posts = await fetch(`https://jsonplaceholder.typicode.com/posts?title=${title}`)
-                    .then((response) => response.json())
-                this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
-                    .then((response) => response.json())
-            } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
-            }
-        },
-        async fetchPosts() {
+        async fetchPosts(search='') {
             this.posts = []
-            this.loading = true
+            let api_url = 'https://jsonplaceholder.typicode.com/posts'
+            if(search){
+                api_url = api_url.concat('?title=', search)
+            }
             try {
-                this.posts = await fetch(`https://jsonplaceholder.typicode.com/posts`)
-                    .then((response) => response.json())
+                this.posts = await fetch(api_url)
+                    .then((response) => response.json(api_url))
+            } catch (error) {
+                alert(error)
+            }
+        },
+        async fetchPhotos() {
+            try {
                 this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
                     .then((response) => response.json())
             } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
+                alert(error)
             }
         },
-        async fetchPost(id) {
-            this.post = null
-            this.loading = true
+        async getPost(id) {
             try {
                 this.post = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
                     .then((response) => response.json())
+            } catch (error) {
+                alert(error)
+            }
+        },
+        async getPhoto(id) {
+            try {
                 this.photo = await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
                     .then((response) => response.json())
             } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
+                alert(error)
             }
         },
     }

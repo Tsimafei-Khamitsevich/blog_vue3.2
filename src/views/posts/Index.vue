@@ -3,21 +3,17 @@ import PostCard from '../../components/PostCard.vue';
 import { storeToRefs } from 'pinia'
 import TheSearchInput from '@/components/TheSearchInput.vue';
 import { usePostStore } from '@/stores/post'
-import TheNotificationBar from "../../components/TheNotificationBar.vue";
 
-const { posts, photos, loading, error } = storeToRefs(usePostStore())
-const { fetchPosts } = usePostStore()
+
+const { posts, photos } = storeToRefs(usePostStore())
+const { fetchPosts, fetchPhotos } = usePostStore()
 
 fetchPosts()
-
+fetchPhotos()
 </script>
 
 <template>
   <main>
-    <TheNotificationBar :loading="loading" :error="error"></TheNotificationBar>
-
-    <br>
-
     <section>
       <div class="text-center">
         <h2 class="text-3xl font-extrabold text-gray-900">Блог</h2>

@@ -4,33 +4,24 @@ export const useCommentStore = defineStore({
     id: 'comment',
     state: () => ({
         comments: [],
-        photos: [],
+        avatars: [],
     }),
     getters: {
-        getPostComments: (state) => {
-            state.mergeCommentPhoto()
+        getCommentsData: (state) => {
             return state.comments
-        }
+        },
+        getAvatars: (state) => {
+            return state.avatars
+        },
     },
     actions: {
-        async fetchComments(id) {
-            this.fetchCommentContent(id)
-            this.fetchPhotos()
-        },
-        async fetchCommentContent(id) {
+        async fetchCommentsData(id) {
             this.comments = await fetch(`https://jsonplaceholder.typicode.com/post/${id}/comments`)
                 .then((response) => response.json())
         },
-        async fetchPhotos() {
-            this.photos = await fetch('https://jsonplaceholder.typicode.com/photos')
+        async fetchAvatars() {
+            this.avatars = await fetch('https://jsonplaceholder.typicode.com/photos')
                 .then((response) => response.json())
-        },
-        async mergeCommentPhoto() {
-            let i = 0;
-            while (i < this.comments.length) {
-                this.comments[i] = Object.assign({}, this.comments[i], this.photos[i]);
-                i++;
-            }
         },
         async onCreateComment(id, comment_text) {
             try {

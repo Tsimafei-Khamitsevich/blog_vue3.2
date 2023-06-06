@@ -3,26 +3,27 @@ import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
 import { usePostStore } from '@/stores/post'
-import SinglePost from '@/components/SinglePost.vue'
+import TheSinglePost from '@/components/TheSinglePost.vue'
 
 import { useCommentStore } from '@/stores/comment'
 import SingleComment from '@/components/SingleComment.vue'
-import TheNotificationBar from "../../components/TheNotificationBar.vue";
 
 const route = useRoute()
-const { post, loading, error, photo } = storeToRefs(usePostStore())
-const { fetchPost } = usePostStore()
-const { fetchComments } = useCommentStore()
-const { getPostComments } = storeToRefs(useCommentStore())
+const { post, photo } = storeToRefs(usePostStore())
+const { getPost, getPhoto } = usePostStore()
+const { fetchCommentsData, fetchAvatars } = useCommentStore()
+const { getCommentsData, getAvatars } = storeToRefs(useCommentStore())
 
-fetchPost(route.params.id)
-fetchComments(route.params.id)
+
+getPost(route.params.id)
+getPhoto(route.params.id)
+fetchCommentsData(route.params.id)
+fetchAvatars()
 </script>
 
 <template>
   <div>
-    <TheNotificationBar :loading="loading" :error="error"></TheNotificationBar>
-
+    
     <div v-if="post">
       <br>
       <div class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
@@ -31,10 +32,10 @@ fetchComments(route.params.id)
 
           <br>
 
-          <SinglePost :post="post" :photo_url="photo.url" :comments_number="getPostComments.length"></SinglePost>
+          <TheSinglePost :post="post" :photo_url="photo.url" :comments_number="getCommentsData.length"></TheSinglePost>
 
-          <div v-for="comment in getPostComments" :key="comment.id">
-            <SingleComment :comment="comment"></SingleComment>
+          <div v-for="comment in getCommentsData" :key="comment.id">
+            <SingleComment :comment="comment" :avatar="getAvatars[comment.id].thumbnailUrl"></SingleComment>
           </div>
 
         </div>
